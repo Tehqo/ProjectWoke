@@ -69,7 +69,7 @@ async def play(ctx, url):
     URL = info['formats'][0]['url']
     songs.append(URL)
 
-    await ctx.send(f"Added {TITLE}")
+    await ctx.send(f"**Added** {TITLE}")
 
     if not voice.is_playing():
         voice.play(FFmpegPCMAudio(source=URL, **FFMPEG_OPTIONS), after=lambda e: play_next(ctx, URL))
@@ -87,7 +87,10 @@ async def queue(ctx):
         msg = msg + str(i+1) + ". " + songInfo[i] + "\n"
     
     await ctx.send(msg)
-        
+
+@client.command()
+async def grab(ctx):
+    await ctx.message.author.send(f"You were listening to **[{songInfo[0]}]**.")
 
 client.run(SECRET_KEY)
 
